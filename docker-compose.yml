@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  windows_vm_builder:
+    image: windows_vm_builder
+    user: root
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    container_name: windows_vm_builder
+    ports:
+      - "7770:22"
+    volumes:
+      - ${HOME}/:/home/craigc/
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=:1      
+    entrypoint: "/usr/sbin/sshd -D"
